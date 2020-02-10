@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Layout from '../core/Layout'
 import { Redirect } from 'react-router-dom'
-import { signin, authenticate } from '../auth'
+import { signin, authenticate, isAuthenticated } from '../auth'
 
 
 const Signin = () => {
@@ -14,6 +14,7 @@ const Signin = () => {
     })
 
     const { email, password, error, loading, redirectToReferrer } = values
+    const { user } = isAuthenticated() //desconstruct so we can easily redirect the user based on the role
 
     // higher order function returning another function
     const handleChange = (name) => (event) => {
@@ -69,9 +70,17 @@ const Signin = () => {
             </div>
         )
     )
-
+    // redirect user based on the role
     const redirectUser = () => {
         if (redirectToReferrer) {
+            if (user && user.role === 1) {
+                return <Redirect to="/admin/dashboard" />
+            } else {
+                return <Redirect to="/user/dashboard" />
+            }
+        }
+        
+        if(isAuthenticated()) {
             return <Redirect to="/" />
         }
     }
