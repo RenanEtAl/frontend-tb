@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Signup from './user/Signup'
 import Signin from './user/Signin'
@@ -7,6 +7,8 @@ import Dashboard from './user/UserDashboard'
 import PrivateRoute from './auth/PrivateRoute'
 import AdminDashboard from './user/AdminDashboard'
 import AdminRoute from './auth/AdminRoute'
+import AddCategory from './admin/AddCategory'
+import AddProduct from './admin/AddProduct'
 
 const Routes = () => {
     return (
@@ -18,7 +20,8 @@ const Routes = () => {
                 <Route path="/signup" exact component={Signup} />
                 <PrivateRoute path='/user/dashboard' exact component={Dashboard}/>
                 <AdminRoute path='/admin/dashboard' exact component={AdminDashboard}/>
-                
+                <AdminRoute path='/create/category' exact component={AddCategory}/>
+                <AdminRoute path='/create/product' exact component={AddProduct}/>
             </Switch>
         </BrowserRouter>
     )

@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Menu from './Menu'
+import '../styles.css'
 
 // layout that will be used for every pages
 const Layout = (
