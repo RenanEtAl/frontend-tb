@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { signout, isAuthenticated } from '../auth'
+import { itemTotal } from './cartHelpers'
 
 // menu color
 // history is the actual browser path
@@ -24,16 +25,29 @@ const Menu = ({ history }) => (
                 <Link className="nav-link" style={isActive(history, '/shop')} to="/shop">Shop</Link>
             </li>
 
+            <li className="nav-item">
+                <Link
+                    className="nav-link"
+                    style={isActive(history, "/cart")}
+                    to="/cart"
+                >
+                    Cart{" "}
+                    <sup>
+                        <small className="cart-badge">{itemTotal()}</small>
+                    </sup>
+                </Link>
+            </li>
+
             {isAuthenticated() && isAuthenticated().user.role === 0 && (
                 <li className="nav-item">
-                <Link className="nav-link" style={isActive(history, '/user/dashboard')} to="/user/dashboard">Dashboard</Link>
-            </li>
+                    <Link className="nav-link" style={isActive(history, '/user/dashboard')} to="/user/dashboard">Dashboard</Link>
+                </li>
             )}
 
             {isAuthenticated() && isAuthenticated().user.role === 1 && (
                 <li className="nav-item">
-                <Link className="nav-link" style={isActive(history, '/adminr/dashboard')} to="/admin/dashboard">Dashboard</Link>
-            </li>
+                    <Link className="nav-link" style={isActive(history, '/adminr/dashboard')} to="/admin/dashboard">Dashboard</Link>
+                </li>
             )}
 
             {!isAuthenticated() && (
@@ -46,7 +60,7 @@ const Menu = ({ history }) => (
                     </li>
                 </Fragment>
             )}
-            
+
             {isAuthenticated() && (
                 <div>
                     <li className="nav-item">
