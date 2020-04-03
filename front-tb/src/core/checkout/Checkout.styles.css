@@ -1,0 +1,10 @@
+.credit-card-info {
+
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 24px;
+  color: red;
+  border-style: solid;
+  border-color: red;
+  border-radius: 8px;
+}

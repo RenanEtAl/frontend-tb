@@ -9,6 +9,7 @@ import { isAuthenticated } from "../../auth";
 import { Link } from "react-router-dom";
 // import "braintree-web"; // not using this package
 import DropIn from "braintree-web-drop-in-react";
+import "./Checkout.styles.css";
 
 const Checkout = ({ products, setRun = f => f, run = undefined }) => {
   const [data, setData] = useState({
@@ -179,10 +180,16 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
   return (
     <div>
       <h2>Total: ${getTotal()}</h2>
+
       {showLoading(data.loading)}
       {showError(data.error)}
       {showSuccess(data.success)}
       {showCheckout()}
+      <div className="credit-card-info">
+        Use the test credit card for payments
+        <br />
+        4242 4242 4242 4242 - Exp: 02/21 - CVV: 123{" "}
+      </div>
     </div>
   );
 };
