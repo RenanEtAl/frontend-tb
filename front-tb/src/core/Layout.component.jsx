@@ -1,5 +1,5 @@
 import React from 'react'
-import Menu from './Menu'
+import Menu from './menu/Menu.component'
 import '../styles.css'
 
 // layout that will be used for every pages
@@ -12,7 +12,7 @@ const Layout = (
     <div>
         <Menu />
         <div className="jumbotron">
-            <h2>{title}</h2>
+            <h1>{title}</h1>
             <p className="lead">{description}</p>
         </div>
         <div className={className}> 

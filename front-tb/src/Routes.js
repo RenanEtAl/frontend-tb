@@ -1,21 +1,23 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import Signup from './user/Signup'
-import Signin from './user/Signin'
-import Home from './core/Home'
-import Dashboard from './user/UserDashboard'
-import PrivateRoute from './auth/PrivateRoute'
-import AdminDashboard from './user/AdminDashboard'
-import AdminRoute from './auth/AdminRoute'
-import AddCategory from './admin/AddCategory'
-import AddProduct from './admin/AddProduct'
-import Shop from './core/Shop'
-import Product from './core/Product'
-import Cart from './core/Cart'
-import Orders from './admin/Orders'
-import Profile from './user/Profile'
-import ManageProducts from './admin/ManageProducts'
-import UpdateProduct from './admin/UpdateProduct'
+import Signup from './user/Signup.component'
+import Signin from './user/Signin.component'
+import Home from './core/home/Home.component'
+import Dashboard from './user/UserDashboard.component'
+import PrivateRoute from './auth/routes/PrivateRoute'
+import AdminDashboard from './user/AdminDashboard.component'
+import AdminRoute from './auth/routes/AdminRoute'
+import AddCategory from './admin/AddCategory.component'
+import AddProduct from './admin/AddProduct.component'
+import Shop from './core/shop/Shop.component'
+import Product from './core/Product.component'
+import Cart from './core/cart/Cart.component'
+import Orders from './admin/Orders.component'
+import Profile from './user/Profile.component'
+import ManageProducts from './admin/ManageProducts.component'
+import UpdateProduct from './admin/UpdateProduct.component'
+import UpdateCategory from './admin/UpdateCategory.component'
+import ManageCategories from './admin/ManageCategories.component'
 
 
 
@@ -23,7 +25,6 @@ import UpdateProduct from './admin/UpdateProduct'
 const Routes = () => {
     return (
         <BrowserRouter>
-
             <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/shop" exact component={Shop} />
@@ -34,7 +35,9 @@ const Routes = () => {
                 <AdminRoute path='/create/category' exact component={AddCategory}/>
                 <AdminRoute path='/create/product' exact component={AddProduct}/>
                 <AdminRoute path='/admin/products' exact component={ManageProducts}/>
+                <AdminRoute path='/admin/categories' exact component={ManageCategories}/>
                 <AdminRoute path='/admin/product/update/:productId' exact component={UpdateProduct}/>
+                <AdminRoute path='/admin/category/update/:categoryId' exact component={UpdateCategory}/>
                 <Route path="/product/:productId" exact component={Product} />
                 <Route path="/cart" exact component={Cart} />
                 <AdminRoute path='/admin/orders' exact component={Orders}/>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import Layout from "../core/Layout";
+import Layout from "../core/Layout.component";
 import { isAuthenticated } from '../auth'
 import { Link } from 'react-router-dom'
-import { createCategory } from './apiAdmin'
+import { createCategory } from './api/apiAdmin'
 
 
 const AddCategory = () => {

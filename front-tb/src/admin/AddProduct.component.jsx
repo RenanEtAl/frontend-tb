@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Layout from '../core/Layout';
+import Layout from '../core/Layout.component';
 import { isAuthenticated } from '../auth';
-import { Link, Redirect } from 'react-router-dom';
-import { getProduct, getCategories, updateProduct } from './apiAdmin';
+import { createProduct, getCategories } from './api/apiAdmin';
 
-const UpdateProduct = ({ match }) => {
+const AddProduct = () => {
     const [values, setValues] = useState({
         name: '',
         description: '',
@@ -15,19 +14,18 @@ const UpdateProduct = ({ match }) => {
         quantity: '',
         photo: '',
         loading: false,
-        error: false,
+        error: '',
         createdProduct: '',
         redirectToProfile: false,
         formData: ''
     });
-    const [categories, setCategories] = useState([]);
 
     const { user, token } = isAuthenticated();
     const {
         name,
         description,
         price,
-        // categories,
+        categories,
         category,
         shipping,
         quantity,
@@ -38,42 +36,24 @@ const UpdateProduct = ({ match }) => {
         formData
     } = values;
 
-    const init = productId => {
-        getProduct(productId).then(data => {
-            if (data.error) {
-                setValues({ ...values, error: data.error });
-            } else {
-                // populate the state
-                setValues({
-                    ...values,
-                    name: data.name,
-                    description: data.description,
-                    price: data.price,
-                    category: data.category._id,
-                    shipping: data.shipping,
-                    quantity: data.quantity,
-                    formData: new FormData()
-                });
-                // load categories
-                initCategories();
-            }
-        });
-    };
-
     // load categories and set form data
-    const initCategories = () => {
+    const init = () => {
         getCategories().then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
             } else {
-                setCategories(data.data);
+                setValues({
+                    ...values,
+                    categories: data.data,
+                    formData: new FormData()
+                });
             }
         });
     };
 
     useEffect(() => {
-        init(match.params.productId);
-    }, []);
+        init();
+    }, [values]);
 
     const handleChange = name => event => {
         const value = name === 'photo' ? event.target.files[0] : event.target.value;
@@ -85,7 +65,7 @@ const UpdateProduct = ({ match }) => {
         event.preventDefault();
         setValues({ ...values, error: '', loading: true });
 
-        updateProduct(match.params.productId, user._id, token, formData).then(data => {
+        createProduct(user._id, token, formData).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
             } else {
@@ -97,8 +77,6 @@ const UpdateProduct = ({ match }) => {
                     price: '',
                     quantity: '',
                     loading: false,
-                    error: false,
-                    redirectToProfile: true,
                     createdProduct: data.name
                 });
             }
@@ -156,50 +134,43 @@ const UpdateProduct = ({ match }) => {
                 <input onChange={handleChange('quantity')} type="number" className="form-control" value={quantity} />
             </div>
 
-            <button className="btn btn-outline-primary">Update Product</button>
+            <button className="btn btn-outline-primary">Create Product</button>
         </form>
     );
 
     const showError = () => (
+        // display error only if there's error, else display nothing
         <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
             {error}
         </div>
     );
 
     const showSuccess = () => (
+        // if product was successfully created, display its name, else no
         <div className="alert alert-info" style={{ display: createdProduct ? '' : 'none' }}>
-            <h2>{`${createdProduct}`} is updated!</h2>
+            <h2>{`${createdProduct}`} is created and stored in database!</h2>
         </div>
     );
 
-    const showLoading = () =>
+    const showLoading = () => 
         loading && (
             <div className="alert alert-success">
                 <h2>Loading...</h2>
             </div>
         );
 
-    const redirectUser = () => {
-        if (redirectToProfile) {
-            if (!error) {
-                return <Redirect to="/" />;
-            }
-        }
-    };
-
     return (
-        <Layout title="Add a new product" description={`G'day ${user.name}, ready to add a new product?`}>
+        <Layout title="Add a new product" description={`Hello ${user.name}, ready to add a new product?`}>
             <div className="row">
                 <div className="col-md-8 offset-md-2">
                     {showLoading()}
                     {showSuccess()}
                     {showError()}
                     {newPostForm()}
-                    {redirectUser()}
                 </div>
             </div>
         </Layout>
     );
 };
 
-export default UpdateProduct;
+export default AddProduct;

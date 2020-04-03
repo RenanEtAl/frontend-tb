@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import Layout from '../core/Layout'
+import Layout from '../core/Layout.component'
 import { Redirect } from 'react-router-dom'
 import { signin, authenticate, isAuthenticated } from '../auth'
 
 
 const Signin = () => {
     const [values, setValues] = useState({
-        email: 'first@gmail.com',
-        password: '1234567',
+        email: '',
+        password: '',
         error: '',
         loading: false,
         redirectToReferrer: false
@@ -93,7 +93,7 @@ const Signin = () => {
     return (
         (
 
-            <Layout title="Signin" description="Signin if you are already registered"
+            <Layout title="Sign In" description="You already have an account? Sign In!"
                 className="container col-md-8 offset-md-2">
 
                 {showError()}

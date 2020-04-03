@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Link, Redirect } from 'react-router-dom'
-import ShowImage from './ShowImage'
+import ShowImage from '../ShowImage.component'
 import moment from 'moment'
-import { addItem, updateItem, removeItem } from './cartHelpers'
+import { addItem, updateItem, removeItem } from '../cartHelpers'
+import './Card.styles.css'
 
 
 const Card = ({ product,
@@ -66,7 +67,7 @@ const Card = ({ product,
     };
 
     const showStock = (quantity) => {
-        return quantity > 0 ? (<span className="badge badge-primary badge-pill">In Stock</span>
+        return quantity > 0 ? (<span className="badge badge-info badge-pill mb-5">In Stock</span>
         ) : (<span className="badge badge-primary badge-pill">Out of Stock</span>)
     }
 

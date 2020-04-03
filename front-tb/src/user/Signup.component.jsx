@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Layout from '../core/Layout'
+import Layout from '../core/Layout.component'
 import { Link } from 'react-router-dom'
 import { signup } from '../auth'
 
@@ -78,7 +78,7 @@ const Signup = () => {
     return (
         (
 
-            <Layout title="Signup" description="Create an account"
+            <Layout title="Sign Up" description="Create Account"
                 className="container col-md-8 offset-md-2">
 
                 {showError()}

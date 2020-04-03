@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import Layout from './Layout'
-import { getProducts } from './apiCore'
-import Card from './Card'
-import Search from './Search'
+import Layout from '../Layout.component'
+import { getProducts } from '../apiCore'
+import Card from '../card/Card.component'
+import Search from '../search/Search.component'
+
+
 const Home = () => {
     const [productsBySell, setProductsBySell] = useState([])
     const [productsByArrival, setProductsByArrival] = useState([])
@@ -34,7 +36,7 @@ const Home = () => {
     }, [])
 
     return (
-        <Layout title="Home page" description="Node react" className="container-fluid">
+        <Layout title="Thunderbolt" description='MiniMart' className="container-fluid">
             <Search />
             <h2 className="mb-4">New Arrivals</h2>
             <div className="row">

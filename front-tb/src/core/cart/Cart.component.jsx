@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Layout from './Layout';
-import { getCart } from './cartHelpers';
-import Card from './Card';
-import Checkout from './Checkout';
+import Layout from '../Layout.component';
+import { getCart } from '../cartHelpers';
+import Card from '../card/Card.component';
+import Checkout from '../checkout/Checkout.component';
 
 
 const Cart = () => {
@@ -38,8 +38,8 @@ const Cart = () => {
     )
     return (
         <Layout
-            title="Shopping Cart"
-            description="Manage your cart items. Add, remove, checkout or continue shopping."
+            title="Cart"
+            description="Manage your cart. Add, remove, checkout or continue shopping!"
             className="container-fluid"
         >
         <div className="row">
