@@ -3,6 +3,7 @@ import Layout from "../core/Layout.component";
 import { isAuthenticated } from "../auth";
 import { Redirect } from "react-router-dom";
 import { read, update, updateUser } from "./apiUser";
+import { CircleArrow as ScrollUpButton } from "react-scroll-up-button";
 
 const Profile = ({ match }) => {
   const [values, setValues] = useState({
@@ -10,15 +11,15 @@ const Profile = ({ match }) => {
     email: "",
     password: "",
     error: false,
-    success: false
+    success: false,
   });
   // destructure
   const { token } = isAuthenticated();
   const { name, email, password, error, success } = values;
 
-  const init = userId => {
+  const init = (userId) => {
     //console.log(userId)
-    read(userId, token).then(data => {
+    read(userId, token).then((data) => {
       if (data.error) {
         setValues({ ...values, error: true });
       } else {
@@ -31,14 +32,14 @@ const Profile = ({ match }) => {
     init(match.params.userId); // need user id since it's used in the route.js
   }, []);
 
-  const handleChange = name => event => {
+  const handleChange = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
   };
 
-  const clickSubmit = event => {
+  const clickSubmit = (event) => {
     event.preventDefault();
     update(match.params.userId, token, { name, email, password }) // wrap name, email, pw in an object
-      .then(data => {
+      .then((data) => {
         if (data.error) {
           console.log(data.error);
           alert(data.error);
@@ -50,14 +51,14 @@ const Profile = ({ match }) => {
               ...values,
               name: data.name,
               email: data.email,
-              success: true
+              success: true,
             });
           });
         }
       });
   };
 
-  const redirectUser = success => {
+  const redirectUser = (success) => {
     if (success) {
       return <Redirect to="/cart" />;
     }
@@ -109,6 +110,7 @@ const Profile = ({ match }) => {
 
       {profileUpdate(name, email, password)}
       {redirectUser(success)}
+      <ScrollUpButton />
     </Layout>
   );
 };

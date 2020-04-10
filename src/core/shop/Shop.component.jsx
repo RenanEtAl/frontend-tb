@@ -5,11 +5,12 @@ import { getCategories, getFilteredProducts } from "../apiCore";
 import Checkbox from "../Checkbox.component";
 import RadioBox from "../RadioBox.component";
 import { prices } from "../fixedPrices";
+import { CircleArrow as ScrollUpButton } from "react-scroll-up-button";
 import "./Shop.styles.css";
 
 const Shop = () => {
   const [myFilters, setMyFilters] = useState({
-    filters: { category: [], price: [] } // filter by price
+    filters: { category: [], price: [] }, // filter by price
   });
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(false);
@@ -19,7 +20,7 @@ const Shop = () => {
   const [size, setSize] = useState(0);
 
   const init = () => {
-    getCategories().then(data => {
+    getCategories().then((data) => {
       if (data.error) {
         setError(data.error);
       } else {
@@ -28,9 +29,9 @@ const Shop = () => {
     });
   };
 
-  const loadFilteredResults = newFilters => {
+  const loadFilteredResults = (newFilters) => {
     //console.log(newFilters)
-    getFilteredProducts(skip, limit, newFilters).then(data => {
+    getFilteredProducts(skip, limit, newFilters).then((data) => {
       if (data.error) {
         setError(data.error);
       } else {
@@ -66,7 +67,7 @@ const Shop = () => {
     let toSkip = skip + limit;
     // console.log(newFilters);
     // filters are taking from the state
-    getFilteredProducts(toSkip, limit, myFilters.filters).then(data => {
+    getFilteredProducts(toSkip, limit, myFilters.filters).then((data) => {
       if (data.error) {
         setError(data.error);
       } else {
@@ -78,7 +79,7 @@ const Shop = () => {
     });
   };
 
-  const handlePrice = value => {
+  const handlePrice = (value) => {
     const data = prices;
     let array = [];
     // get the key out of data
@@ -114,7 +115,7 @@ const Shop = () => {
           <ul>
             <Checkbox
               categories={categories}
-              handleFilters={filters => handleFilters(filters, "category")}
+              handleFilters={(filters) => handleFilters(filters, "category")}
             />
           </ul>
           <hr />
@@ -122,7 +123,7 @@ const Shop = () => {
           <div>
             <RadioBox
               prices={prices}
-              handleFilters={filters => handleFilters(filters, "price")}
+              handleFilters={(filters) => handleFilters(filters, "price")}
             />
           </div>
         </div>
@@ -138,6 +139,7 @@ const Shop = () => {
           {loadMoreButton()}
         </div>
       </div>
+      <ScrollUpButton />
     </Layout>
   );
 };
